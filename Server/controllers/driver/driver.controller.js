@@ -27,6 +27,7 @@ async function saveDriver(form) {
         return {status: true, data: saveDriver.recordsets[0], errorMessage: ""};
     } catch (error) {
         console.log(error);
+        return {status: false, errorMessage: error};
     }
 }
 
@@ -93,7 +94,7 @@ async function ActivateDeactivateDriver(form) {
         let pool = await sql.connect(config);
         // console.log('====================== form.IsActive',  form.IsActive)
         let driver = await pool.request()
-                    .input('IsActive', sql.Bit, form.IsActive)
+                    .input('IsActive', sql.VarChar, form.IsActive)
                     .input('DriverId', sql.Int, form.DriverId)
                     .execute('ActivateDeactivateDriver');
                     // console.log('========================ac', driver)

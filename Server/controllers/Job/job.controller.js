@@ -13,9 +13,8 @@ async function saveJob(form) {
             .input('Title', sql.VarChar, form.Title)
             .input('Description', sql.VarChar, form.Description)
             .input('JobType', sql.VarChar, form.JobType)
-            .input('StartTime', sql.VarChar, form.StartTime)
-            .input('EndTime', sql.VarChar, form.EndTime)
-            .input('Address', sql.VarChar, form.Address)
+            .input('StartTime', sql.DateTime, form.StartTime)
+            .input('EndTime', sql.DateTime, form.EndTime)
             .input('JobStatus', sql.VarChar, form.JobStatus)
             .input('IsActive', sql.Bit, form.IsActive)
             .input('CreatedBy', sql.Int, form.CreatedBy)
@@ -31,6 +30,7 @@ async function saveJob(form) {
         return {status: true, data: saveJob.recordsets[0], errorMessage: ""};
     } catch (error) {
         console.log(error);
+        return {status: false, data: "", errorMessage: error};
     }
 }
 
@@ -79,7 +79,7 @@ async function ActivateDeactivateJob(form) {
         // console.log('====================== form.IsActive',  form.IsActive)
         let job = await pool.request()
                     .input('JobId', sql.Int, form.JobId)
-                    .input('IsActive', sql.Bit, form.IsActive)
+                    .input('IsActive', sql.VarChar, form.IsActive)
                     .execute('ActivateDeactivateJob');
                     // console.log('========================ac', job)
         return await {status: true, data: job.recordsets[0], errorMessage: ""};

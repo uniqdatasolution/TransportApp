@@ -23,14 +23,14 @@ class Server{
         
         var AdminRoutes = require('./controllers/admin/admin.routes');
         var DriverRoutes = require('./controllers/driver/driver.routes');
-        // var customerRoutes = require('./contoller/customer/customer.routes');
+        var JobRoutes = require('./controllers/Job/job.routes');
         // var customerDocumentRoutes = require('./contoller/customer_document/document.routes');
         // var LoanRoutes = require('./contoller/loan/loan.routes');
         // var TransactionRoutes = require('./contoller/loan_transactions/transactions.routes');
 
         this.app.use('/api/AdminUser', AdminRoutes);
         this.app.use('/api/Driver', DriverRoutes);
-        // this.app.use('/api', customerRoutes);
+        this.app.use('/api/Job', JobRoutes);
         // this.app.use('/api', customerDocumentRoutes);
         // this.app.use('/api', LoanRoutes);
         // this.app.use('/api', TransactionRoutes);
