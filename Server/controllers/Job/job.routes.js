@@ -63,6 +63,14 @@ router.route('/ActivateDeactivateJob').get((req, res) => {
     })
 })
 
-
+router.route('/SaveJobLocation').post((req, res) => {
+    // // destructuring req.body
+    let add = {...req.body};
+    Db.saveJobLocation(add).then(result => {
+        console.log('res for saveJobLocation ', result);
+        // res.status(200).json(result[0]);
+        res.json(result);
+    })
+})
 
 module.exports = router;

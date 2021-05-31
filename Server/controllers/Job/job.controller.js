@@ -89,10 +89,28 @@ async function ActivateDeactivateJob(form) {
     }
 }
 
+async function saveJobLocation(form) {
+    try {
+        // enctype="multipart/form-data"
+        let pool = await sql.connect(config);
+        let saveJobLocation = await pool.request()
+            .input('Id', sql.Int, form.Id)
+            .input('JobId', sql.Int, form.JobId)
+            .input('Latitude', sql.VarChar, form.Latitude)
+            .input('Longitude', sql.VarChar, form.Longitude)
+            .execute('SaveJobLocation');
+        return {status: true, data: saveJobLocation.recordsets[0], errorMessage: ""};
+    } catch (error) {
+        console.log(error);
+        return {status: false, data: "", errorMessage: error};
+    }
+}
+
 module.exports = {
     saveJob: saveJob,
     getAllJobs: getAllJobs,
     getJobByJobId: getJobByJobId,
     deleteJobByJobId: deleteJobByJobId,
     ActivateDeactivateJob: ActivateDeactivateJob,
+    saveJobLocation: saveJobLocation
 }
